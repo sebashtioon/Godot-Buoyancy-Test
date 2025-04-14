@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode unshaded, depth_draw_never, cull_back;
 
-uniform float cloudscale = 1.1;
+uniform float noise_scale = 1.1;
 uniform float speed = 0.01;
 uniform float clouddark = 0.5;
 uniform float cloudlight = 0.3;
@@ -48,11 +48,11 @@ void fragment() {
     vec2 uv = UV;
 
     // Animate clouds
-    float time = TIME * speed;
-    float q = fbm(uv * cloudscale * 0.5);
+    float time = TIME * (speed / 10.0);
+    float q = fbm(uv * noise_scale * 0.5);
 
     float r = 0.0;
-    vec2 tuv = uv * cloudscale + q - time;
+    vec2 tuv = uv * noise_scale + q - time;
     float weight = 0.8;
     for (int i = 0; i < 8; i++) {
         r += abs(weight * noise(tuv));
@@ -61,7 +61,7 @@ void fragment() {
     }
 
     float f = 0.0;
-    tuv = uv * cloudscale + q - time;
+    tuv = uv * noise_scale + q - time;
     weight = 0.7;
     for (int i = 0; i < 8; i++) {
         f += weight * noise(tuv);

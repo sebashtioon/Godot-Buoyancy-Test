@@ -16,7 +16,20 @@ sky_material = SubResource("PanoramaSkyMaterial_vcvt7")
 background_mode = 2
 sky = SubResource("Sky_wc0b5")
 tonemap_mode = 2
+sdfgi_bounce_feedback = 0.0
+sdfgi_energy = 0.22
 glow_enabled = true
+glow_normalized = true
+glow_intensity = 0.24
+glow_strength = 0.69
+glow_bloom = 0.07
+glow_blend_mode = 0
+glow_hdr_scale = 0.0
+fog_mode = 1
+fog_density = 1.0
+adjustment_enabled = true
+adjustment_contrast = 0.66
+adjustment_saturation = 2.26
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_hy6fq"]
 fractal_type = 2
@@ -99,7 +112,7 @@ mesh = SubResource("PlaneMesh_0xwda")
 script = ExtResource("3_t5r3v")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.0258505, 0.775918, -0.630304, -0.0162474, 0.630758, 0.77581, 0.999534, -0.00981423, 0.0289121, -3.86907, 4.90497, 1.0132)
+transform = Transform3D(0.028932, 0.606996, -0.794178, -0.00975525, 0.794644, 0.606997, 0.999534, -0.00981423, 0.0289121, -4.99728, 4.38075, 1.0132)
 fov = 99.6
 
 [node name="Yacht" type="RigidBody3D" parent="."]

@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/skies/kloppenheim_06_puresky_4k.exr" id="1_rlaii"]
 [ext_resource type="Shader" uid="uid://cpxvpna6eb28o" path="res://assets/shaders/clouds.gdshader" id="2_5mrjc"]
 [ext_resource type="Shader" uid="uid://vmheyjm6xq7g" path="res://assets/shaders/water.gdshader" id="3_kf8lf"]
-[ext_resource type="Script" uid="uid://dagolm3u54he6" path="res://src/Water.gd" id="4_mgm53"]
-[ext_resource type="Script" uid="uid://bxhk3t7svoquv" path="res://src/Buoyancy.gd" id="5_uewes"]
+[ext_resource type="Script" uid="uid://dagolm3u54he6" path="res://src/water.gd" id="4_mgm53"]
+[ext_resource type="Script" uid="uid://bxhk3t7svoquv" path="res://src/buoyancy.gd" id="5_uewes"]
 [ext_resource type="Shader" uid="uid://sykq04nofrdu" path="res://assets/shaders/mask.gdshader" id="6_kqbth"]
 [ext_resource type="PackedScene" uid="uid://ylk23n6pgcft" path="res://assets/models/Yacht.blend" id="7_srxbw"]
 

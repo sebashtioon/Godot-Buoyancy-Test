@@ -43,9 +43,10 @@ float edge(float depth) {
 	return near * far / (far + depth * (near - far));
 }
 
+// This takes care of the waves.
 void vertex() {
-	world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	height = texture(wave, world_pos.xz / noise_scale + wave_time * wave_speed).r;
+	world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).zyx;
+	height = texture(wave, world_pos.xz / noise_scale + wave_time * wave_speed).g;
 	VERTEX.y += height * height_scale;
 }
 

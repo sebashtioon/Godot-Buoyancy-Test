@@ -4,6 +4,7 @@
 [ext_resource type="Shader" uid="uid://vmheyjm6xq7g" path="res://assets/shaders/water.gdshader" id="2_twn8n"]
 [ext_resource type="Script" uid="uid://dagolm3u54he6" path="res://Water.gd" id="3_t5r3v"]
 [ext_resource type="Script" uid="uid://bxhk3t7svoquv" path="res://Cube.gd" id="3_wnrpb"]
+[ext_resource type="PackedScene" uid="uid://ylk23n6pgcft" path="res://assets/Yacht.blend" id="5_lquwl"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
 panorama = ExtResource("1_cyo0m")
@@ -38,11 +39,11 @@ noise = SubResource("FastNoiseLite_hs2gb")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jbi1g"]
 noise_type = 3
-frequency = 0.0019
+frequency = 0.0039
 offset = Vector3(659.57, 489.36, 0)
 fractal_type = 3
 fractal_octaves = 10
-fractal_gain = 0.195
+fractal_gain = 0.145
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7k2l2"]
 seamless = true
@@ -51,8 +52,8 @@ noise = SubResource("FastNoiseLite_jbi1g")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0n3y0"]
 render_priority = 0
 shader = ExtResource("2_twn8n")
-shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
-shader_parameter/albedo2 = Color(0, 0.47451, 0.764706, 1)
+shader_parameter/albedo = Color(0.164487, 0.331771, 0.251431, 1)
+shader_parameter/albedo2 = Color(0.197745, 0.498682, 0.585787, 1)
 shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
 shader_parameter/color_shallow = Color(0, 0.552941, 0.65098, 1)
 shader_parameter/metallic = 1.0
@@ -61,12 +62,12 @@ shader_parameter/texture_normal = SubResource("NoiseTexture2D_brvoh")
 shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_u5h0n")
 shader_parameter/wave = SubResource("NoiseTexture2D_7k2l2")
 shader_parameter/wave_time = 0.0
-shader_parameter/wave_direction = Vector2(2, 0.455)
-shader_parameter/wave_2_direction = Vector2(2.83, 0.32)
-shader_parameter/time_scale = 0.06
-shader_parameter/wave_speed = 0.385
-shader_parameter/noise_scale = 14.405
-shader_parameter/height_scale = 1.09
+shader_parameter/wave_direction = Vector2(1.915, 0.455)
+shader_parameter/wave_2_direction = Vector2(3.485, 0.71)
+shader_parameter/time_scale = 0.025
+shader_parameter/wave_speed = 0.12
+shader_parameter/noise_scale = 26.695
+shader_parameter/height_scale = 0.715
 shader_parameter/beers_law = 7.804
 shader_parameter/depth_offset = -0.75
 shader_parameter/edge_scale = 0.362
@@ -79,9 +80,6 @@ material = SubResource("ShaderMaterial_0n3y0")
 size = Vector2(500, 500)
 subdivide_width = 1000
 subdivide_depth = 1000
-
-[sub_resource type="BoxMesh" id="BoxMesh_km0el"]
-size = Vector3(5, 1, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lu3w5"]
 size = Vector3(5, 1, 10)
@@ -96,52 +94,63 @@ transform = Transform3D(-0.940098, 0.0859291, -0.329897, -0.23722, -0.859886, 0.
 shadow_enabled = true
 
 [node name="Water" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.076848, -0.0892534, 0.215013)
+transform = Transform3D(0.748852, 0, -0.662738, 0, 1, 0, 0.662738, 0, 0.748852, 0.076848, -0.0892534, 0.215013)
 mesh = SubResource("PlaneMesh_0xwda")
 script = ExtResource("3_t5r3v")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.0305324, 0.321287, -0.94649, 0, 0.946931, 0.321437, 0.999534, -0.00981422, 0.0289121, -11.6034, 4.14286, 1.45379)
+transform = Transform3D(0.0258505, 0.775918, -0.630304, -0.0162474, 0.630758, 0.77581, 0.999534, -0.00981423, 0.0289121, -3.86907, 4.90497, 1.0132)
+fov = 99.6
 
-[node name="Cube" type="RigidBody3D" parent="."]
-transform = Transform3D(-0.761663, 0, -0.647974, 0, 1, 0, 0.647974, 0, -0.761663, 0, 0.54515, 0)
+[node name="Yacht" type="RigidBody3D" parent="."]
+transform = Transform3D(-0.466618, 0, 0.884459, 0, 1, 0, -0.884459, 0, -0.466618, 0.659908, 5.78438, -2.17525)
 mass = 10.0
 script = ExtResource("3_wnrpb")
-float_force = 1.3
-water_angular_drag = 0.1
+float_force = 2.735
+water_drag = 0.26
+water_angular_drag = 0.355
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube"]
-mesh = SubResource("BoxMesh_km0el")
+[node name="Yacht" parent="Yacht" instance=ExtResource("5_lquwl")]
+transform = Transform3D(0.756413, 0, -0.654094, 0, 1, 0, 0.654094, 0, 0.756413, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Yacht"]
 shape = SubResource("BoxShape3D_lu3w5")
 
-[node name="ProbeContainer" type="Node3D" parent="Cube"]
+[node name="ProbeContainer" type="Node3D" parent="Yacht"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.590401, 0)
 
-[node name="Probe" type="Marker3D" parent="Cube/ProbeContainer"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 2.5, -0.349848, 5)
+[node name="Probe" type="Marker3D" parent="Yacht/ProbeContainer"]
+transform = Transform3D(0.999997, 0.00218237, -0.000670165, -0.00218258, 0.999997, -0.000308946, 0.000669509, 0.000310438, 0.999999, 3.42037, 0.367664, 2.84762)
+gizmo_extents = 0.75
 
-[node name="Probe2" type="Marker3D" parent="Cube/ProbeContainer"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 2.5, -0.349848, 0)
+[node name="Probe2" type="Marker3D" parent="Yacht/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.21944, 0.367664, 3.46195)
+gizmo_extents = 0.75
 
-[node name="Probe3" type="Marker3D" parent="Cube/ProbeContainer"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 2.5, -0.349848, -5)
+[node name="Probe3" type="Marker3D" parent="Yacht/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.53639, 0.367664, 1.2349)
+gizmo_extents = 0.75
 
-[node name="Probe4" type="Marker3D" parent="Cube/ProbeContainer"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, -0.349848, 5)
+[node name="Probe4" type="Marker3D" parent="Yacht/ProbeContainer"]
+transform = Transform3D(0.999997, 0.00218237, -0.000670195, -0.00218258, 0.999997, -0.000308946, 0.00066945, 0.000310438, 0.999999, 0.733105, 0.367664, 1.20269)
+gizmo_extents = 0.75
 
-[node name="Probe5" type="Marker3D" parent="Cube/ProbeContainer"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, -0.349848, 0)
+[node name="Probe5" type="Marker3D" parent="Yacht/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.467823, 0.367664, 1.81702)
+gizmo_extents = 0.75
 
-[node name="Probe6" type="Marker3D" parent="Cube/ProbeContainer"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, -0.349848, -5)
+[node name="Probe6" type="Marker3D" parent="Yacht/ProbeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.849134, 0.367664, -0.410037)
+gizmo_extents = 0.75
 
-[node name="Probe7" type="Marker3D" parent="Cube/ProbeContainer"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -2.5, -0.349848, 5)
+[node name="Probe7" type="Marker3D" parent="Yacht/ProbeContainer"]
+transform = Transform3D(0.999963, -0.0084203, -0.000560373, 0.0084071, 0.999756, -0.0204128, 0.000732094, 0.0204074, 0.99979, -3.50048, 0.109335, -2.84174)
+gizmo_extents = 0.75
 
-[node name="Probe8" type="Marker3D" parent="Cube/ProbeContainer"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -2.5, -0.349848, 0)
+[node name="Probe8" type="Marker3D" parent="Yacht/ProbeContainer"]
+transform = Transform3D(0.999943, -0.0106026, 0.000106484, 0.0106026, 0.999742, -0.0200969, 0.000106543, 0.0200969, 0.999797, -4.70127, 0.0842557, -2.22766)
+gizmo_extents = 0.75
 
-[node name="Probe9" type="Marker3D" parent="Cube/ProbeContainer"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -2.5, -0.349848, -5)
+[node name="Probe9" type="Marker3D" parent="Yacht/ProbeContainer"]
+transform = Transform3D(0.999943, -0.0106026, 0.000106484, 0.0106026, 0.999742, -0.0200969, 0.000106543, 0.0200969, 0.999797, -3.38463, 0.142976, -4.45412)
+gizmo_extents = 0.75

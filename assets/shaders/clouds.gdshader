@@ -1,17 +1,18 @@
 shader_type spatial;
-render_mode unshaded, depth_draw_never, cull_back;
+render_mode unshaded, depth_draw_never, cull_disabled;
 
 uniform float noise_scale = 1.1;
 uniform float speed = 0.01;
-uniform float clouddark = 0.5;
-uniform float cloudlight = 0.3;
-uniform float cloudcover = 0.2;
-uniform float cloudalpha = 8.0;
-uniform float skytint = 0.5;
+uniform float darkness_amount = 0.5;
+uniform float detail = 0.3;
+uniform float concentration = 0.0;
+uniform float amount = 0.2;
+uniform float bloom = 1.0;
+uniform float alpha = 8.0;
 uniform vec3 cloud_tint : source_color = vec3(1.0, 1.0, 1.0);
 uniform float edge_fade = 0.5;
 
-uniform mat2 m = mat2(vec2(1.6, 1.2), vec2(-1.2, 1.6));
+uniform mat2 rotation_matrix = mat2(vec2(1.6, 1.2), vec2(-1.2, 1.6));
 
 // --- Noise Functions ---
 vec2 hash(vec2 p) {
@@ -37,7 +38,7 @@ float fbm(vec2 n) {
     float amplitude = 0.1;
     for (int i = 0; i < 7; i++) {
         total += noise(n) * amplitude;
-        n = m * n;
+        n = rotation_matrix * n;
         amplitude *= 0.4;
     }
     return total;
@@ -56,7 +57,7 @@ void fragment() {
     float weight = 0.8;
     for (int i = 0; i < 8; i++) {
         r += abs(weight * noise(tuv));
-        tuv = m * tuv + time;
+        tuv = rotation_matrix * tuv + time;
         weight *= 0.7;
     }
 
@@ -65,15 +66,15 @@ void fragment() {
     weight = 0.7;
     for (int i = 0; i < 8; i++) {
         f += weight * noise(tuv);
-        tuv = m * tuv + time;
+        tuv = rotation_matrix * tuv + time;
         weight *= 0.6;
     }
 
     f *= r + f;
 
-    vec3 cloud_color = clamp(cloud_tint * (clouddark + cloudlight * f), 0.0, 1.0);
+    vec3 cloud_color = clamp(cloud_tint * (darkness_amount * detail * f), 0.0, 1.0) * bloom;
 
-    float cloud_strength = cloudcover + cloudalpha * f * r;
+    float cloud_strength = amount + alpha * f * r;
     cloud_strength = clamp(cloud_strength, 0.0, 1.0);
 
     // --- Edge fade ---
@@ -81,5 +82,5 @@ void fragment() {
     float fade = smoothstep(edge_fade, 0.5, edge_dist);
 
     ALBEDO = cloud_color;
-    ALPHA = cloud_strength * (1.0 - fade);
+    ALPHA = cloud_strength * (1.0 - fade) + concentration;
 }

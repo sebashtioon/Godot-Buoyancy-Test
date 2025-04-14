@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://b64rk3r14m5br"]
+[gd_scene load_steps=21 format=3 uid="uid://b64rk3r14m5br"]
 
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="1_cyo0m"]
 [ext_resource type="Shader" uid="uid://vmheyjm6xq7g" path="res://assets/shaders/water.gdshader" id="2_twn8n"]
 [ext_resource type="Script" uid="uid://dagolm3u54he6" path="res://Water.gd" id="3_t5r3v"]
 [ext_resource type="Script" uid="uid://bxhk3t7svoquv" path="res://Cube.gd" id="3_wnrpb"]
 [ext_resource type="PackedScene" uid="uid://ylk23n6pgcft" path="res://assets/Yacht.blend" id="5_lquwl"]
+[ext_resource type="Shader" uid="uid://sykq04nofrdu" path="res://assets/shaders/mask.gdshader" id="6_7mycd"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
 panorama = ExtResource("1_cyo0m")
@@ -94,6 +95,13 @@ size = Vector2(500, 500)
 subdivide_width = 1000
 subdivide_depth = 1000
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_272bh"]
+render_priority = 0
+shader = ExtResource("6_7mycd")
+
+[sub_resource type="BoxMesh" id="BoxMesh_5vw27"]
+size = Vector3(3.165, 0.835, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_lu3w5"]
 size = Vector3(5, 1, 10)
 
@@ -108,6 +116,7 @@ shadow_enabled = true
 
 [node name="Water" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.748852, 0, -0.662738, 0, 1, 0, 0.662738, 0, 0.748852, 0.076848, -0.0892534, 0.215013)
+transparency = 0.1
 mesh = SubResource("PlaneMesh_0xwda")
 script = ExtResource("3_t5r3v")
 
@@ -123,11 +132,18 @@ float_force = 2.735
 water_drag = 0.26
 water_angular_drag = 0.355
 
+[node name="Cutout" type="MeshInstance3D" parent="Yacht"]
+transform = Transform3D(-0.648412, 0, -0.761289, 0, 1, 0, 0.761289, 0, -0.648412, -4.78806, 0.360649, -4.13278)
+material_override = SubResource("ShaderMaterial_272bh")
+mesh = SubResource("BoxMesh_5vw27")
+skeleton = NodePath("../..")
+
 [node name="Yacht" parent="Yacht" instance=ExtResource("5_lquwl")]
 transform = Transform3D(0.756413, 0, -0.654094, 0, 1, 0, 0.654094, 0, 0.756413, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Yacht"]
+[node name="Collision" type="CollisionShape3D" parent="Yacht"]
 shape = SubResource("BoxShape3D_lu3w5")
+debug_color = Color(0, 0.6, 0.701961, 1)
 
 [node name="ProbeContainer" type="Node3D" parent="Yacht"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.590401, 0)

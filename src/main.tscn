@@ -1,15 +1,15 @@
 [gd_scene load_steps=24 format=3 uid="uid://b64rk3r14m5br"]
 
-[ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/kloppenheim_06_puresky_4k.exr" id="1_cyo0m"]
-[ext_resource type="Shader" uid="uid://vmheyjm6xq7g" path="res://assets/shaders/water.gdshader" id="2_twn8n"]
-[ext_resource type="Script" uid="uid://dagolm3u54he6" path="res://Water.gd" id="3_t5r3v"]
-[ext_resource type="Script" uid="uid://bxhk3t7svoquv" path="res://Cube.gd" id="3_wnrpb"]
-[ext_resource type="PackedScene" uid="uid://ylk23n6pgcft" path="res://assets/Yacht.blend" id="5_lquwl"]
-[ext_resource type="Shader" uid="uid://sykq04nofrdu" path="res://assets/shaders/mask.gdshader" id="6_7mycd"]
-[ext_resource type="Shader" uid="uid://cpxvpna6eb28o" path="res://assets/shaders/clouds.gdshader" id="7_272bh"]
+[ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/skies/kloppenheim_06_puresky_4k.exr" id="1_rlaii"]
+[ext_resource type="Shader" uid="uid://cpxvpna6eb28o" path="res://assets/shaders/clouds.gdshader" id="2_5mrjc"]
+[ext_resource type="Shader" uid="uid://vmheyjm6xq7g" path="res://assets/shaders/water.gdshader" id="3_kf8lf"]
+[ext_resource type="Script" uid="uid://dagolm3u54he6" path="res://src/Water.gd" id="4_mgm53"]
+[ext_resource type="Script" uid="uid://bxhk3t7svoquv" path="res://src/Buoyancy.gd" id="5_uewes"]
+[ext_resource type="Shader" uid="uid://sykq04nofrdu" path="res://assets/shaders/mask.gdshader" id="6_kqbth"]
+[ext_resource type="PackedScene" uid="uid://ylk23n6pgcft" path="res://assets/models/Yacht.blend" id="7_srxbw"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
-panorama = ExtResource("1_cyo0m")
+panorama = ExtResource("1_rlaii")
 
 [sub_resource type="Sky" id="Sky_wc0b5"]
 sky_material = SubResource("PanoramaSkyMaterial_vcvt7")
@@ -35,7 +35,7 @@ adjustment_saturation = 2.26
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a202f"]
 render_priority = 0
-shader = ExtResource("7_272bh")
+shader = ExtResource("2_5mrjc")
 shader_parameter/cloudscale = 7.845
 shader_parameter/speed = 0.01
 shader_parameter/clouddark = 0.5
@@ -85,7 +85,7 @@ noise = SubResource("FastNoiseLite_jbi1g")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0n3y0"]
 render_priority = 0
-shader = ExtResource("2_twn8n")
+shader = ExtResource("3_kf8lf")
 shader_parameter/albedo = Color(0.164487, 0.331771, 0.251431, 1)
 shader_parameter/albedo2 = Color(0.197745, 0.498682, 0.585787, 1)
 shader_parameter/color_deep = Color(0.105882, 0.294118, 0.329412, 1)
@@ -117,7 +117,7 @@ subdivide_depth = 1000
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_272bh"]
 render_priority = 0
-shader = ExtResource("6_7mycd")
+shader = ExtResource("6_kqbth")
 
 [sub_resource type="BoxMesh" id="BoxMesh_5vw27"]
 size = Vector3(3.165, 0.835, 1)
@@ -142,7 +142,7 @@ mesh = SubResource("PlaneMesh_5vw27")
 transform = Transform3D(0.748852, 0, -0.662738, 0, 1, 0, 0.662738, 0, 0.748852, 0.076848, -0.0892534, 0.215013)
 transparency = 0.1
 mesh = SubResource("PlaneMesh_0xwda")
-script = ExtResource("3_t5r3v")
+script = ExtResource("4_mgm53")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.0292452, 0.035695, -0.998935, 0.00877176, 0.999315, 0.0359654, 0.999534, -0.00981423, 0.0289121, -7.45975, 4.38075, 0.0752864)
@@ -151,7 +151,7 @@ fov = 99.6
 [node name="Yacht" type="RigidBody3D" parent="."]
 transform = Transform3D(-0.466618, 0, 0.884459, 0, 1, 0, -0.884459, 0, -0.466618, 0.659908, 5.78438, -2.17525)
 mass = 10.0
-script = ExtResource("3_wnrpb")
+script = ExtResource("5_uewes")
 float_force = 2.735
 water_drag = 0.26
 water_angular_drag = 0.355
@@ -162,7 +162,7 @@ material_override = SubResource("ShaderMaterial_272bh")
 mesh = SubResource("BoxMesh_5vw27")
 skeleton = NodePath("../..")
 
-[node name="Yacht" parent="Yacht" instance=ExtResource("5_lquwl")]
+[node name="Yacht" parent="Yacht" instance=ExtResource("7_srxbw")]
 transform = Transform3D(0.756413, 0, -0.654094, 0, 1, 0, 0.654094, 0, 0.756413, 0, 0, 0)
 
 [node name="Collision" type="CollisionShape3D" parent="Yacht"]

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ylk23n6pgcft"
-path="res://.godot/imported/Yacht.blend-640288c70c0d1b0feb41b867b3fe3357.scn"
+path="res://.godot/imported/Yacht.blend-512df912bf133ee08a7af1d0c30a3330.scn"
 
 [deps]
 
-source_file="res://assets/Yacht.blend"
-dest_files=["res://.godot/imported/Yacht.blend-640288c70c0d1b0feb41b867b3fe3357.scn"]
+source_file="res://assets/models/Yacht.blend"
+dest_files=["res://.godot/imported/Yacht.blend-512df912bf133ee08a7af1d0c30a3330.scn"]
 
 [params]
 

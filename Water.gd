@@ -9,7 +9,6 @@ var height_scale: float
 
 var time: float
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	material = mesh.surface_get_material(0)
 	noise = material.get_shader_parameter("wave").noise.get_seamless_image(512, 512)
@@ -18,9 +17,7 @@ func _ready():
 	height_scale = material.get_shader_parameter("height_scale")
 
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta: float) -> void:
 	time += delta
 	material.set_shader_parameter("wave_time", time)
 

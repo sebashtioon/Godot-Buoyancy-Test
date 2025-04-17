@@ -4,8 +4,8 @@
 [ext_resource type="Shader" uid="uid://cpxvpna6eb28o" path="res://assets/shaders/clouds.gdshader" id="2_5mrjc"]
 [ext_resource type="Shader" uid="uid://vmheyjm6xq7g" path="res://assets/shaders/water.gdshader" id="3_kf8lf"]
 [ext_resource type="Script" uid="uid://dagolm3u54he6" path="res://src/water.gd" id="4_mgm53"]
-[ext_resource type="Script" uid="uid://bxhk3t7svoquv" path="res://src/buoyancy.gd" id="5_uewes"]
-[ext_resource type="Shader" uid="uid://sykq04nofrdu" path="res://assets/shaders/mask.gdshader" id="6_kqbth"]
+[ext_resource type="Script" uid="uid://bxhk3t7svoquv" path="res://src/buoyant_object.gd" id="5_uewes"]
+[ext_resource type="Shader" uid="uid://sykq04nofrdu" path="res://assets/shaders/water_mask.gdshader" id="6_kqbth"]
 [ext_resource type="PackedScene" uid="uid://ylk23n6pgcft" path="res://assets/models/Yacht.blend" id="7_srxbw"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
@@ -173,13 +173,14 @@ script = ExtResource("4_mgm53")
 transform = Transform3D(0.0292452, 0.035695, -0.998935, 0.00877176, 0.999315, 0.0359654, 0.999534, -0.00981423, 0.0289121, -7.45975, 4.38075, 0.0752864)
 fov = 99.6
 
-[node name="Yacht" type="RigidBody3D" parent="."]
+[node name="Yacht" type="RigidBody3D" parent="." node_paths=PackedStringArray("water")]
 transform = Transform3D(-0.466618, 0, 0.884459, 0, 1, 0, -0.884459, 0, -0.466618, 0.659908, 5.78438, -2.17525)
 mass = 10.0
 script = ExtResource("5_uewes")
 float_force = 2.735
 water_drag = 0.26
 water_angular_drag = 0.355
+water = NodePath("../Water")
 
 [node name="Cutout" type="MeshInstance3D" parent="Yacht"]
 transform = Transform3D(-0.648412, 0, -0.761289, 0, 1, 0, 0.761289, 0, -0.648412, -4.78806, 0.360649, -4.13278)

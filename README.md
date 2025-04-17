@@ -1,1 +1,6 @@
-# Simple Buoyancy implemented in Godot 4.4.1
+# Godot-Buoyancy-Test
+
+## Includes:
+- Customizable water shader
+- A water mask to prevent mesh clipping
+- A boat model that has buoyancy implemented

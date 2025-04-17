@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b64rk3r14m5br"]
+[gd_scene load_steps=24 format=3 uid="uid://b64rk3r14m5br"]
 
 [ext_resource type="Texture2D" uid="uid://bay3ak8k8pevv" path="res://assets/skies/kloppenheim_06_puresky_4k.exr" id="1_rlaii"]
 [ext_resource type="Shader" uid="uid://cpxvpna6eb28o" path="res://assets/shaders/clouds.gdshader" id="2_5mrjc"]
@@ -10,6 +10,7 @@
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vcvt7"]
 panorama = ExtResource("1_rlaii")
+energy_multiplier = 0.6
 
 [sub_resource type="Sky" id="Sky_wc0b5"]
 sky_material = SubResource("PanoramaSkyMaterial_vcvt7")
@@ -30,47 +31,27 @@ glow_hdr_scale = 0.0
 fog_mode = 1
 fog_density = 1.0
 adjustment_enabled = true
-adjustment_contrast = 0.66
+adjustment_contrast = 1.1
 adjustment_saturation = 2.26
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a202f"]
 render_priority = 0
 shader = ExtResource("2_5mrjc")
-shader_parameter/noise_scale = 11.755
-shader_parameter/speed = 0.1
-shader_parameter/darkness_amount = 11.025
-shader_parameter/detail = 13.685
+shader_parameter/noise_scale = -6.84
+shader_parameter/speed = 0.05
+shader_parameter/darkness_amount = 0.26
+shader_parameter/detail = 16.395
 shader_parameter/concentration = 0.0
 shader_parameter/amount = 0.155
-shader_parameter/bloom = 1.585
+shader_parameter/bloom = 1.645
 shader_parameter/alpha = 8.0
-shader_parameter/cloud_tint = Color(0.74, 0.74, 0.74, 1)
-shader_parameter/edge_fade = 0.175
+shader_parameter/cloud_tint = Color(1, 1, 1, 1)
+shader_parameter/edge_fade = 0.405
 shader_parameter/rotation_matrix = Transform2D(1.6, -1.2, 1.86, 1.6, 0, 0)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_5vw27"]
 lightmap_size_hint = Vector2i(12, 12)
 material = SubResource("ShaderMaterial_a202f")
-flip_faces = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rlaii"]
-render_priority = 0
-shader = ExtResource("2_5mrjc")
-shader_parameter/noise_scale = 11.755
-shader_parameter/speed = 0.54
-shader_parameter/darkness_amount = 11.025
-shader_parameter/detail = 13.685
-shader_parameter/concentration = 0.0
-shader_parameter/amount = -1.23
-shader_parameter/bloom = 2.48
-shader_parameter/alpha = 3.97
-shader_parameter/cloud_tint = Color(0.73791, 0.81, 0.0891, 1)
-shader_parameter/edge_fade = 0.175
-shader_parameter/rotation_matrix = Transform2D(1.6, -1.2, 1.86, 1.6, 0, 0)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_5mrjc"]
-lightmap_size_hint = Vector2i(12, 12)
-material = SubResource("ShaderMaterial_rlaii")
 flip_faces = true
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_hy6fq"]
@@ -158,10 +139,6 @@ shadow_enabled = true
 [node name="Clouds" type="MeshInstance3D" parent="."]
 transform = Transform3D(-79.9461, 0, 825.289, 0, 829.152, 0, -825.289, 0, -79.9461, 0, 104.656, 0)
 mesh = SubResource("PlaneMesh_5vw27")
-
-[node name="Clouds2" type="MeshInstance3D" parent="."]
-transform = Transform3D(474.313, 0, 680.088, 0, 829.152, 0, -680.088, 0, 474.313, 0, 290.365, 0)
-mesh = SubResource("PlaneMesh_5mrjc")
 
 [node name="Water" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.748852, 0, -0.662738, 0, 1, 0, 0.662738, 0, 0.748852, 0.076848, -0.0892534, 0.215013)

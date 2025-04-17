@@ -11,7 +11,7 @@ extends RigidBody3D
 
 var submerged : bool = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	submerged = false
 	for p in probes:
 		var depth = water.get_height(p.global_position) - p.global_position.y 
